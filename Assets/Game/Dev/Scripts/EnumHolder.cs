@@ -20,6 +20,7 @@
         Board,
         Keyboard,
         GameName,
+        Languages,
     }
 
     public enum LevelTextType

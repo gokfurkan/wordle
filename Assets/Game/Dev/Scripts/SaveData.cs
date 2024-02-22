@@ -35,5 +35,10 @@ namespace Game.Dev.Scripts
         {
             return haptic;
         }
+
+        public GameLanguage GetGameLanguage()
+        {
+            return gameLanguage;
+        }
     }
 }

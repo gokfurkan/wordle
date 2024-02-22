@@ -1,5 +1,8 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using Game.Dev.Scripts;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Template.Scripts
 {
@@ -13,10 +16,15 @@ namespace Template.Scripts
         [Space(10)]
         [SerializeField] private TextMeshProUGUI versionText;
 
+        [Space(10)] 
+        public List<Image> flagIcons;
+        public List<Sprite> flagSprites;
+
         private void Start()
         {
             InitSettings();
             InitGameVersion();
+            InitLanguage();
         }
 
         public void ToggleSound()
@@ -58,6 +66,22 @@ namespace Template.Scripts
                 onObject.SetActive(state);
                 offObject.SetActive(!state);
             }
+        }
+
+        private void InitLanguage()
+        {
+            GameLanguage gameLanguage = SaveManager.instance.saveData.GetGameLanguage();
+
+            for (int i = 0; i < flagIcons.Count; i++)
+            {
+                flagIcons[i].sprite = flagSprites[(int)gameLanguage];
+            }
+        }
+
+        public void ChangeLanguage(int languageIndex)
+        {
+            SaveManager.instance.saveData.gameLanguage = (GameLanguage)languageIndex;
+            BusSystem.CallLevelLoad();
         }
 
         private void InitGameVersion()

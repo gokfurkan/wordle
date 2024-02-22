@@ -100,6 +100,16 @@ namespace Game.Dev.Scripts
             Activate(PanelType.Settings , false);
             Activate(PanelType.OpenSettings);
         }
+        
+        public void ActivateLanguagePanel()
+        {
+            Activate(PanelType.Languages);
+        }
+
+        public void DeActivateLanguagePanel()
+        {
+            Activate(PanelType.Languages , false);
+        }
 
         public void ActivateDevPanel()
         {

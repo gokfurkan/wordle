@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Dev.Scripts.WordleMechanic;
 using Sirenix.OdinInspector;
 using Template.Scripts;
 using TMPro;
@@ -14,6 +15,7 @@ namespace Game.Dev.Scripts.Scriptables
         public GamePlayOptions gamePlayOptions;
         public EconomyOptions economyOptions;
         public UIOptions uiOptions;
+        public BoardOptions boardOptions;
     }
 
     [Serializable]
@@ -62,5 +64,20 @@ namespace Game.Dev.Scripts.Scriptables
 
         [Space(10)] 
         public TMP_FontAsset  textFont;
+    }
+
+    [Serializable]
+    public class BoardOptions
+    {
+        [Space(10)] 
+        public List<TextAsset> validAssets;
+        public List<TextAsset> wordAssets;
+        
+        [Space(10)] 
+        public Tile.State emptyState;
+        public Tile.State occupiedState;
+        public Tile.State correctState;
+        public Tile.State wrongSpotState;
+        public Tile.State incorrectState;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Dev.Scripts.Scriptables;
 using Sirenix.OdinInspector;
 using Template.Scripts;
 using UnityEngine;
@@ -9,24 +10,12 @@ namespace Game.Dev.Scripts.WordleMechanic
 {
     public class Board : MonoBehaviour
     {
-        [Header("Tiles")]
-        public Tile.State emptyState;
-        public Tile.State occupiedState;
-        public Tile.State correctState;
-        public Tile.State wrongSpotState;
-        public Tile.State incorrectState;
-        
-        [Space(10)] 
-        public List<TextAsset> wordAssets;
-        public List<TextAsset> validAssets;
-        public List<GameObject> keyboards;
-        
-        [Space(10)] 
         public Transform board;
         public GameObject invalidWordText;
+        public List<GameObject> keyboards;
 
         [Space(10)]
-        [ReadOnly] public string word;
+        [ReadOnly] public string currentWord;
         
         private Row[] rows;
         private int rowIndex;
@@ -36,46 +25,20 @@ namespace Game.Dev.Scripts.WordleMechanic
         private string[] validWords;
         
         private GameLanguage gameLanguage;
-
-        private void Awake()
-        {
-            rows = board.GetComponentsInChildren<Row>();
-        }
+        private GameSettings gameSettings;
 
         private void Start()
         {
-            LoadData();
-            NewGame();
+            InitBoard();
         }
 
-        private void LoadData()
+        private void InitBoard()
         {
-            gameLanguage = SaveManager.instance.saveData.gameLanguage;
-            keyboards.ActivateAtIndex((int)gameLanguage);
+            rows = board.GetComponentsInChildren<Row>();
             
-            solutions = wordAssets[(int)gameLanguage].text.Split("\n");
-            validWords = validAssets[(int)gameLanguage].text.Split("\n");
-        }
-
-        private void NewGame()
-        {
+            LoadData();
             ClearBoard();
             SetRandomWord();
-
-            enabled = true;
-        }
-
-        // public void TryAgain()
-        // {
-        //     ClearBoard();
-        //
-        //     enabled = true;
-        // }
-
-        private void SetRandomWord()
-        {
-            word = solutions[Random.Range(0, solutions.Length)];
-            word = word.ToLower().Trim();
         }
 
         public void GetInput(string input)
@@ -85,10 +48,8 @@ namespace Game.Dev.Scripts.WordleMechanic
             if (input == "delete")
             {
                 columnIndex = Mathf.Max(columnIndex - 1, 0);
-
                 currentRow.tiles[columnIndex].SetLetter('\0');
-                currentRow.tiles[columnIndex].SetState(emptyState);
-
+                currentRow.tiles[columnIndex].SetState(gameSettings.boardOptions.emptyState);
                 invalidWordText.SetActive(false);
             }
             else if (columnIndex >= currentRow.tiles.Length)
@@ -102,8 +63,7 @@ namespace Game.Dev.Scripts.WordleMechanic
             {
                 var inputChar = Convert.ToChar(input);
                 currentRow.tiles[columnIndex].SetLetter(inputChar);
-                currentRow.tiles[columnIndex].SetState(occupiedState);
-
+                currentRow.tiles[columnIndex].SetState(gameSettings.boardOptions.occupiedState);
                 columnIndex++;
             }
         }
@@ -116,23 +76,22 @@ namespace Game.Dev.Scripts.WordleMechanic
                 return;
             }
 
-            string remaining = word;
-
-            // check correct/incorrect letters first
+            string remaining = currentWord;
+            
             for (int i = 0; i < row.tiles.Length; i++)
             {
                 Tile tile = row.tiles[i];
 
-                if (tile.letter == word[i])
+                if (tile.letter == currentWord[i])
                 {
-                    tile.SetState(correctState);
+                    tile.SetState(gameSettings.boardOptions.correctState);
 
                     remaining = remaining.Remove(i, 1);
                     remaining = remaining.Insert(i, " ");
                 }
-                else if (!word.Contains(tile.letter))
+                else if (!currentWord.Contains(tile.letter))
                 {
-                    tile.SetState(incorrectState);
+                    tile.SetState(gameSettings.boardOptions.incorrectState);
                 }
             }
 
@@ -141,11 +100,11 @@ namespace Game.Dev.Scripts.WordleMechanic
             {
                 Tile tile = row.tiles[i];
 
-                if (tile.state != correctState && tile.state != incorrectState)
+                if (tile.state != gameSettings.boardOptions.correctState && tile.state != gameSettings.boardOptions.incorrectState)
                 {
                     if (remaining.Contains(tile.letter))
                     {
-                        tile.SetState(wrongSpotState);
+                        tile.SetState(gameSettings.boardOptions.wrongSpotState);
 
                         int index = remaining.IndexOf(tile.letter);
                         remaining = remaining.Remove(index, 1);
@@ -153,7 +112,7 @@ namespace Game.Dev.Scripts.WordleMechanic
                     }
                     else
                     {
-                        tile.SetState(incorrectState);
+                        tile.SetState(gameSettings.boardOptions.incorrectState);
                     }
                 }
             }
@@ -175,41 +134,42 @@ namespace Game.Dev.Scripts.WordleMechanic
 
         private bool IsValidWord(string word)
         {
-            for (int i = 0; i < validWords.Length; i++)
-            {
-                if (validWords[i] == word) {
-                    return true;
-                }
-            }
-
-            return false;
+            return Array.Exists(validWords, validWord => validWord == word);
         }
 
         private bool HasWon(Row row)
         {
-            for (int i = 0; i < row.tiles.Length; i++)
-            {
-                if (row.tiles[i].state != correctState) {
-                    return false;
-                }
-            }
-
-            return true;
+            return Array.TrueForAll(row.tiles, tile => tile.state == gameSettings.boardOptions.correctState);
         }
 
         private void ClearBoard()
         {
-            for (int row = 0; row < rows.Length; row++)
+            foreach (Row row in rows)
             {
-                for (int col = 0; col < rows[row].tiles.Length; col++)
+                foreach (Tile tile in row.tiles)
                 {
-                    rows[row].tiles[col].SetLetter('\0');
-                    rows[row].tiles[col].SetState(emptyState);
+                    tile.SetLetter('\0');
+                    tile.SetState(gameSettings.boardOptions.emptyState);
                 }
             }
 
             rowIndex = 0;
             columnIndex = 0;
+        }
+        
+        private void SetRandomWord()
+        {
+            currentWord = solutions[Random.Range(0, solutions.Length)].Trim().ToLower();
+        }
+        
+        private void LoadData()
+        {
+            gameSettings = InitializeManager.instance.gameSettings;
+            gameLanguage = SaveManager.instance.saveData.GetGameLanguage();
+            
+            keyboards.ActivateAtIndex((int)gameLanguage);
+            solutions = gameSettings.boardOptions.wordAssets[(int)gameLanguage].text.Split("\n");
+            validWords = gameSettings.boardOptions.validAssets[(int)gameLanguage].text.Split("\n");
         }
     }
 }

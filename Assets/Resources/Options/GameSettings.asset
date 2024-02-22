@@ -42,3 +42,25 @@ MonoBehaviour:
     levelCompletedText: LEVEL COMPLETED
     levelFailedText: LEVEL FAILED
     textFont: {fileID: 11400000, guid: e398530eed6907e4bbf0920a876a0b8a, type: 2}
+  boardOptions:
+    validAssets:
+    - {fileID: 4900000, guid: c06ed09fc8b09574991cc61420c4ddb9, type: 3}
+    - {fileID: 4900000, guid: 5722c6753f612eb4282c2678b76dbdbb, type: 3}
+    wordAssets:
+    - {fileID: 4900000, guid: dfae7727077aa7c40b649893af46fe1a, type: 3}
+    - {fileID: 4900000, guid: 5722c6753f612eb4282c2678b76dbdbb, type: 3}
+    emptyState:
+      fillColor: {r: 0, g: 0, b: 0, a: 1}
+      outlineColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+    occupiedState:
+      fillColor: {r: 0, g: 0, b: 0, a: 1}
+      outlineColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+    correctState:
+      fillColor: {r: 0.019607844, g: 0.43529412, b: 0.11764706, a: 1}
+      outlineColor: {r: 0.007843138, g: 0.34901962, b: 0.09019608, a: 1}
+    wrongSpotState:
+      fillColor: {r: 0.745283, g: 0.6887078, b: 0.046873063, a: 1}
+      outlineColor: {r: 0.74509805, g: 0.6901961, b: 0.047058824, a: 1}
+    incorrectState:
+      fillColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+      outlineColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
