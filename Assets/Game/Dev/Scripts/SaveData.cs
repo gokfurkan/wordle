@@ -9,7 +9,7 @@ namespace Game.Dev.Scripts
         public int level;
         public int moneys;
 
-        public bool sound;
+        public bool sound = false;
         public bool haptic;
         
 

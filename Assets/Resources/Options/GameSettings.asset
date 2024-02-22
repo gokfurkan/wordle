@@ -41,4 +41,4 @@ MonoBehaviour:
     hasEndPanelLevel: 0
     levelCompletedText: LEVEL COMPLETED
     levelFailedText: LEVEL FAILED
-    textFont: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+    textFont: {fileID: 11400000, guid: e398530eed6907e4bbf0920a876a0b8a, type: 2}
