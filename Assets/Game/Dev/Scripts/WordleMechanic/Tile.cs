@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Dev.Scripts.Main
+namespace Game.Dev.Scripts.WordleMechanic
 {
     public class Tile : MonoBehaviour
     {

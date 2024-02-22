@@ -5,27 +5,10 @@ using Template.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Game.Dev.Scripts.Main
+namespace Game.Dev.Scripts.WordleMechanic
 {
     public class Board : MonoBehaviour
     {
-        private static readonly KeyCode[] SUPPORTED_KEYS = new KeyCode[] {
-            KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.D, KeyCode.E, KeyCode.F,
-            KeyCode.G, KeyCode.H, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L,
-            KeyCode.M, KeyCode.N, KeyCode.O, KeyCode.P, KeyCode.Q, KeyCode.R,
-            KeyCode.S, KeyCode.T, KeyCode.U, KeyCode.V, KeyCode.W, KeyCode.X,
-            KeyCode.Y, KeyCode.Z,
-        };
-
-        private Row[] rows;
-        private int rowIndex;
-        private int columnIndex;
-
-        private string[] solutions;
-        private string[] validWords;
-        [ReadOnly] public string word;
-        
-        [Space(10)]
         [Header("Tiles")]
         public Tile.State emptyState;
         public Tile.State occupiedState;
@@ -42,6 +25,16 @@ namespace Game.Dev.Scripts.Main
         public Transform board;
         public GameObject invalidWordText;
 
+        [Space(10)]
+        [ReadOnly] public string word;
+        
+        private Row[] rows;
+        private int rowIndex;
+        private int columnIndex;
+
+        private string[] solutions;
+        private string[] validWords;
+        
         private GameLanguage gameLanguage;
 
         private void Awake()

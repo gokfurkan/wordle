@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Dev.Scripts.Main
+namespace Game.Dev.Scripts.WordleMechanic
 {
     public class Keyboard : MonoBehaviour
     {
