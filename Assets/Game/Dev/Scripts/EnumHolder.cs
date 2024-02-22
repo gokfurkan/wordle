@@ -17,6 +17,9 @@
         Money, 
         Restart,
         EndContinue,
+        Board,
+        Keyboard,
+        GameName,
     }
 
     public enum LevelTextType

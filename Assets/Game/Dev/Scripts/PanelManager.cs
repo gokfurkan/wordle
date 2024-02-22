@@ -39,10 +39,13 @@ namespace Game.Dev.Scripts
         {
             DisableAll();
             
-            Activate(PanelType.Money);
-            Activate(PanelType.Level);
+            // Activate(PanelType.Money);
+            // Activate(PanelType.Level);
             Activate(PanelType.OpenSettings);
             Activate(PanelType.Restart);
+            Activate(PanelType.Board);
+            Activate(PanelType.Keyboard);
+            Activate(PanelType.GameName);
         }
 
         private void ActivateGamePanel()
@@ -52,9 +55,9 @@ namespace Game.Dev.Scripts
 
         private void ActivateEndPanel(bool win)
         {
-            DisableAll();
-            
-            Activate(PanelType.Money);
+            Activate(PanelType.OpenSettings , false);
+            Activate(PanelType.Restart , false);
+            Activate(PanelType.Keyboard , false);
             
             StartCoroutine(ActivateEndPanelDelay(win));
         }
