@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4837980244904519708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4837980244904519709}
+  - component: {fileID: 4837980244904520162}
+  m_Layer: 0
+  m_Name: BoardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4837980244904519709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837980244904519708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4837980244904520162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837980244904519708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7495eac8937a1e4d8d3262fde4a29ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  word: 
+  emptyState:
+    fillColor: {r: 0, g: 0, b: 0, a: 1}
+    outlineColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  occupiedState:
+    fillColor: {r: 0, g: 0, b: 0, a: 1}
+    outlineColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+  correctState:
+    fillColor: {r: 0.019607844, g: 0.43529412, b: 0.11764706, a: 1}
+    outlineColor: {r: 0.007843138, g: 0.34901962, b: 0.09019608, a: 1}
+  wrongSpotState:
+    fillColor: {r: 0.745283, g: 0.6887078, b: 0.046873063, a: 1}
+    outlineColor: {r: 0.74509805, g: 0.6901961, b: 0.047058824, a: 1}
+  incorrectState:
+    fillColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    outlineColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+  board: {fileID: 0}
+  wordAsset: {fileID: 4900000, guid: 5722c6753f612eb4282c2678b76dbdbb, type: 3}
+  invalidWordText: {fileID: 0}

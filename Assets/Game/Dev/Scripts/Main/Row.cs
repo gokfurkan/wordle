@@ -1,27 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Row : MonoBehaviour
+namespace Game.Dev.Scripts.Main
 {
-    public Tile[] tiles { get; private set; }
-
-    public string Word
+    public class Row : MonoBehaviour
     {
-        get
+        public Tile[] tiles { get; private set; }
+
+        public string Word
         {
-            string word = "";
+            get
+            {
+                string word = "";
 
-            for (int i = 0; i < tiles.Length; i++) {
-                word += tiles[i].letter;
+                for (int i = 0; i < tiles.Length; i++) {
+                    word += tiles[i].letter;
+                }
+
+                return word;
             }
-
-            return word;
         }
-    }
 
-    private void Awake()
-    {
-        tiles = GetComponentsInChildren<Tile>();
+        private void Awake()
+        {
+            tiles = GetComponentsInChildren<Tile>();
+        }
     }
 }

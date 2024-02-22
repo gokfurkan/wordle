@@ -1,42 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tile : MonoBehaviour
+namespace Game.Dev.Scripts.Main
 {
-    private Image fill;
-    private Outline outline;
-    private TextMeshProUGUI text;
+    public class Tile : MonoBehaviour
+    {
+        private Image fill;
+        private Outline outline;
+        private TextMeshProUGUI text;
     
-    public State state { get; private set; }
-    public char letter { get; private set; }
+        public State state { get; private set; }
+        public char letter { get; private set; }
 
-    private void Awake()
-    {
-        fill = GetComponent<Image>();
-        outline = GetComponent<Outline>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
-    }
+        private void Awake()
+        {
+            fill = GetComponent<Image>();
+            outline = GetComponent<Outline>();
+            text = GetComponentInChildren<TextMeshProUGUI>();
+        }
 
-    public void SetLetter(char letter)
-    {
-        this.letter = letter;
-        text.text = letter.ToString();
-    }
+        public void SetLetter(char letter)
+        {
+            this.letter = letter;
+            text.text = letter.ToString();
+        }
 
-    public void SetState(State state)
-    {
-        this.state = state;
-        fill.color = state.fillColor;
-        outline.effectColor = state.outlineColor;
-    }
+        public void SetState(State state)
+        {
+            this.state = state;
+            fill.color = state.fillColor;
+            outline.effectColor = state.outlineColor;
+        }
     
-    [System.Serializable]
-    public class State
-    {
-        public Color fillColor;
-        public Color outlineColor;
+        [System.Serializable]
+        public class State
+        {
+            public Color fillColor;
+            public Color outlineColor;
+        }
     }
 }
