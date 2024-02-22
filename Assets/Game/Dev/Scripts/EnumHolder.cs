@@ -43,4 +43,10 @@
     {
         GameStart,
     }
+
+    public enum GameLanguage
+    {
+        English,
+        Turkish,
+    }
 }

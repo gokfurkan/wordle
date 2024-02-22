@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Template.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,7 +24,7 @@ namespace Game.Dev.Scripts.Main
         private string[] solutions;
         private string[] validWords;
         [ReadOnly] public string word;
-
+        
         [Space(10)]
         [Header("Tiles")]
         public Tile.State emptyState;
@@ -30,11 +32,17 @@ namespace Game.Dev.Scripts.Main
         public Tile.State correctState;
         public Tile.State wrongSpotState;
         public Tile.State incorrectState;
-
+        
+        [Space(10)] 
+        public List<TextAsset> wordAssets;
+        public List<TextAsset> validAssets;
+        public List<GameObject> keyboards;
+        
         [Space(10)] 
         public Transform board;
-        public TextAsset wordAsset;
         public GameObject invalidWordText;
+
+        private GameLanguage gameLanguage;
 
         private void Awake()
         {
@@ -49,13 +57,14 @@ namespace Game.Dev.Scripts.Main
 
         private void LoadData()
         {
-            solutions = wordAsset.text.Split("\n");
-
-            // textFile = Resources.Load("official_wordle_all") as TextAsset;
-            // validWords = textFile.text.Split("\n");
+            gameLanguage = SaveManager.instance.saveData.gameLanguage;
+            keyboards.ActivateAtIndex((int)gameLanguage);
+            
+            solutions = wordAssets[(int)gameLanguage].text.Split("\n");
+            validWords = validAssets[(int)gameLanguage].text.Split("\n");
         }
 
-        public void NewGame()
+        private void NewGame()
         {
             ClearBoard();
             SetRandomWord();
@@ -173,7 +182,6 @@ namespace Game.Dev.Scripts.Main
 
         private bool IsValidWord(string word)
         {
-            return true;
             for (int i = 0; i < validWords.Length; i++)
             {
                 if (validWords[i] == word) {

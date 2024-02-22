@@ -117,7 +117,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WORDLE TR
+  m_text: 'WORDLE
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e398530eed6907e4bbf0920a876a0b8a, type: 2}
   m_sharedMaterial: {fileID: 5527481597924870065, guid: e398530eed6907e4bbf0920a876a0b8a, type: 2}

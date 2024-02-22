@@ -12,6 +12,8 @@ namespace Game.Dev.Scripts
         public bool sound = false;
         public bool haptic;
         
+        public GameLanguage gameLanguage = GameLanguage.English;
+        
 
         //Get
         public int GetLevel()
