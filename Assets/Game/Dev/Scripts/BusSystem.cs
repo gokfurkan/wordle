@@ -39,10 +39,5 @@ namespace Game.Dev.Scripts
         
         public static Action OnMouseClickUp;
         public static void CallMouseClickUp() { OnMouseClickUp?.Invoke(); }
-        
-        //Language
-        
-        public static Action OnInitLanguage;
-        public static void CallInitLanguage() { OnInitLanguage?.Invoke(); }
     }
 }
