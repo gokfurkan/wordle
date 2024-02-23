@@ -134,12 +134,26 @@ namespace Game.Dev.Scripts.WordleMechanic
 
         private bool IsValidWord(string word)
         {
-            return Array.Exists(validWords, validWord => validWord == word);
+            for (int i = 0; i < validWords.Length; i++)
+            {
+                if (validWords[i] == word) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool HasWon(Row row)
         {
-            return Array.TrueForAll(row.tiles, tile => tile.state == gameSettings.boardOptions.correctState);
+            for (int i = 0; i < row.tiles.Length; i++)
+            {
+                if (row.tiles[i].state != gameSettings.boardOptions.correctState) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void ClearBoard()
