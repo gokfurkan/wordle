@@ -81,6 +81,8 @@ namespace Template.Scripts
         public void ChangeLanguage(int languageIndex)
         {
             SaveManager.instance.saveData.gameLanguage = (GameLanguage)languageIndex;
+            SaveManager.instance.Save();
+            
             BusSystem.CallLevelLoad();
         }
 

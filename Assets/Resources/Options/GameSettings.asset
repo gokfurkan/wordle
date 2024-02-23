@@ -45,7 +45,7 @@ MonoBehaviour:
   boardOptions:
     validAssets:
     - {fileID: 4900000, guid: c06ed09fc8b09574991cc61420c4ddb9, type: 3}
-    - {fileID: 4900000, guid: 5722c6753f612eb4282c2678b76dbdbb, type: 3}
+    - {fileID: 4900000, guid: 837e5bfec492098489fd43a5c2951e98, type: 3}
     wordAssets:
     - {fileID: 4900000, guid: dfae7727077aa7c40b649893af46fe1a, type: 3}
     - {fileID: 4900000, guid: 5722c6753f612eb4282c2678b76dbdbb, type: 3}
