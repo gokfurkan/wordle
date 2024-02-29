@@ -223,6 +223,9 @@ namespace Game.Dev.Scripts.WordleMechanic
                 }
             }
 
+            SaveManager.instance.saveData.correctLetterAmount++;
+            SaveManager.instance.Save();
+            
             correctLetters.Add(letter);
             BusSystem.CallRefreshLetterLists();
         }
@@ -237,6 +240,9 @@ namespace Game.Dev.Scripts.WordleMechanic
                 }
             }
 
+            SaveManager.instance.saveData.wrongSpotLetterAmount++;
+            SaveManager.instance.Save();
+            
             wrongSpotLetters.Add(letter);
             BusSystem.CallRefreshLetterLists();
         }

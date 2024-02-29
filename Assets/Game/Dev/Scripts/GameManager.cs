@@ -58,12 +58,16 @@ namespace Game.Dev.Scripts
             
             if (win)
             {
+                SaveManager.instance.saveData.winAmount++;
+                
                 SaveManager.instance.saveData.level++;
                 SaveManager.instance.Save();
                 gameStatus.hasLevelWin = true;
             }
             else
             {
+                SaveManager.instance.saveData.loseAmount++;
+                SaveManager.instance.Save();
                 gameStatus.hasLevelLose = true;
             }
         }

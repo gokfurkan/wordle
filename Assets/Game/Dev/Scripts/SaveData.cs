@@ -11,6 +11,12 @@ namespace Game.Dev.Scripts
 
         public bool sound = true;
         public bool haptic = true;
+
+        public int winAmount;
+        public int loseAmount;
+
+        public int correctLetterAmount;
+        public int wrongSpotLetterAmount;
         
         public GameLanguage gameLanguage = GameLanguage.English;
         
