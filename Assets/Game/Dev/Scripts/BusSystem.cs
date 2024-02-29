@@ -39,5 +39,10 @@ namespace Game.Dev.Scripts
         
         public static Action OnMouseClickUp;
         public static void CallMouseClickUp() { OnMouseClickUp?.Invoke(); }
+        
+        //
+        
+        public static Action OnRefreshLetterLists;
+        public static void CallRefreshLetterLists() { OnRefreshLetterLists?.Invoke(); }
     }
 }

@@ -79,5 +79,6 @@ namespace Game.Dev.Scripts.Scriptables
         public Tile.State correctState;
         public Tile.State wrongSpotState;
         public Tile.State incorrectState;
+        public Tile.State keyboardEmptyState;
     }
 }

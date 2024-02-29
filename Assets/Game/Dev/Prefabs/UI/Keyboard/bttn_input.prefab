@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4787430741238665637}
   - component: {fileID: 7679540576041470384}
   - component: {fileID: 3028916664799220046}
+  - component: {fileID: 3043540693177993343}
   m_Layer: 5
   m_Name: bttn_input
   m_TagString: Untagged
@@ -113,6 +114,21 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3043540693177993343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037399626104928312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5e0d34b40e46c5b596c600e11584d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonBg: {fileID: 4787430741238665637}
+  buttonOutline: {fileID: 3611366485583819985}
+  text: {fileID: 8662504583677398914}
 --- !u!1 &7380669391191296227
 GameObject:
   m_ObjectHideFlags: 0

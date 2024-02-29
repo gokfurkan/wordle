@@ -9,8 +9,8 @@ namespace Game.Dev.Scripts
         public int level;
         public int moneys;
 
-        public bool sound = false;
-        public bool haptic;
+        public bool sound = true;
+        public bool haptic = true;
         
         public GameLanguage gameLanguage = GameLanguage.English;
         

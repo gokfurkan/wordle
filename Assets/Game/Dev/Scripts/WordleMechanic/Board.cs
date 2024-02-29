@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Dev.Scripts.Scriptables;
+using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
 using Template.Scripts;
 using UnityEngine;
@@ -8,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Dev.Scripts.WordleMechanic
 {
-    public class Board : MonoBehaviour
+    public class Board : Singleton<Board>
     {
         public Transform board;
         public GameObject invalidWordText;
@@ -23,6 +24,9 @@ namespace Game.Dev.Scripts.WordleMechanic
 
         private string[] solutions;
         private string[] validWords;
+        
+        [ReadOnly] public List<char> correctLetters;
+        [ReadOnly] public List<char> wrongSpotLetters;
         
         private GameLanguage gameLanguage;
         private GameSettings gameSettings;
@@ -51,16 +55,28 @@ namespace Game.Dev.Scripts.WordleMechanic
                 currentRow.tiles[columnIndex].SetLetter('\0');
                 currentRow.tiles[columnIndex].SetState(gameSettings.boardOptions.emptyState);
                 invalidWordText.SetActive(false);
+                
+                AudioManager.instance.Play(AudioType.ResetWord);
             }
-            else if (columnIndex >= currentRow.tiles.Length)
+            else if (input == "enter")
             {
-                if (input == "enter") 
+                if (columnIndex >= currentRow.tiles.Length) 
                 {
                     SubmitRow(currentRow);
+                }
+                else
+                {
+                    AudioManager.instance.Play(AudioType.WrongWord);
+                    HapticManager.instance.PlayHaptic(HapticTypes.MediumImpact);
                 }
             }
             else
             {
+                if (columnIndex >= currentRow.tiles.Length) return;
+                
+                AudioManager.instance.Play(AudioType.Tap);
+                HapticManager.instance.PlayHaptic(HapticTypes.LightImpact);
+                
                 var inputChar = Convert.ToChar(input);
                 currentRow.tiles[columnIndex].SetLetter(inputChar);
                 currentRow.tiles[columnIndex].SetState(gameSettings.boardOptions.occupiedState);
@@ -84,6 +100,7 @@ namespace Game.Dev.Scripts.WordleMechanic
 
                 if (tile.letter == currentWord[i])
                 {
+                    AddCorrectLetter(tile.letter);
                     tile.SetState(gameSettings.boardOptions.correctState);
 
                     remaining = remaining.Remove(i, 1);
@@ -106,6 +123,7 @@ namespace Game.Dev.Scripts.WordleMechanic
                     {
                         tile.SetState(gameSettings.boardOptions.wrongSpotState);
 
+                        AddWrongSpotLetter(tile.letter);
                         int index = remaining.IndexOf(tile.letter);
                         remaining = remaining.Remove(index, 1);
                         remaining = remaining.Insert(index, " ");
@@ -119,14 +137,23 @@ namespace Game.Dev.Scripts.WordleMechanic
 
             if (HasWon(row)) {
                 
+                AudioManager.instance.Play(AudioType.RightWord);
+                HapticManager.instance.PlayHaptic(HapticTypes.Success);
                 BusSystem.CallLevelEnd(true);
                 enabled = false;
+            }
+            else
+            {
+                AudioManager.instance.Play(AudioType.WrongWord);
+                HapticManager.instance.PlayHaptic(HapticTypes.MediumImpact);
             }
 
             rowIndex++;
             columnIndex = 0;
 
             if (rowIndex >= rows.Length) {
+                AudioManager.instance.Play(AudioType.GameOver);
+                HapticManager.instance.PlayHaptic(HapticTypes.Warning);
                 BusSystem.CallLevelEnd(false);
                 enabled = false;
             }
@@ -184,6 +211,34 @@ namespace Game.Dev.Scripts.WordleMechanic
             keyboards.ActivateAtIndex((int)gameLanguage);
             solutions = gameSettings.boardOptions.wordAssets[(int)gameLanguage].text.Split("\n");
             validWords = gameSettings.boardOptions.validAssets[(int)gameLanguage].text.Split("\n");
+        }
+
+        private void AddCorrectLetter(char letter)
+        {
+            foreach (var t in correctLetters)
+            {
+                if (letter == t)
+                {
+                    return;
+                }
+            }
+
+            correctLetters.Add(letter);
+            BusSystem.CallRefreshLetterLists();
+        }
+        
+        private void AddWrongSpotLetter(char letter)
+        {
+            foreach (var t in wrongSpotLetters)
+            {
+                if (letter == t)
+                {
+                    return;
+                }
+            }
+
+            wrongSpotLetters.Add(letter);
+            BusSystem.CallRefreshLetterLists();
         }
     }
 }

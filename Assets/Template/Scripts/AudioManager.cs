@@ -14,9 +14,6 @@ namespace Template.Scripts
             
             bool currentSoundState = SaveManager.instance.saveData.GetSound();
             AudioListener.volume = currentSoundState ? 1 : 0;
-            
-            //test
-            Play(AudioType.GameStart);
         }
 
         public void Play(AudioType type)

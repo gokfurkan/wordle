@@ -42,7 +42,11 @@
 
     public enum AudioType
     {
-        GameStart,
+        Tap,
+        RightWord,
+        ResetWord,
+        WrongWord,
+        GameOver,
     }
 
     public enum GameLanguage
